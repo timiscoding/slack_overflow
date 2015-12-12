@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Post.destroy_all
+Post.create(:topic => 'How do I javascript?', :content => 'How do I make a hello world in javascript?')
+Post.create(:topic => 'What\'s Ruby?', :content => 'Is the language as precious as the gem?')
+Post.create(:topic => 'This site is amazing!', :content => 'I want to have it\'s children')

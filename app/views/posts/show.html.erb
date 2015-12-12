@@ -1,0 +1,7 @@
+<h1><%= @post.topic %></h1>
+<%= @post.content %>
+
+<div class="controls">
+  <%= link_to 'Edit post', edit_post_path %>
+  <%= link_to 'Delete post', @post, :method => :delete, :data => { :confirm => "Are you sure?" } %>
+</div>
