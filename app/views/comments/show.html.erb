@@ -2,6 +2,6 @@
 <%= @comment.content %>
 
 <div class="controls">
-  <%= link_to 'Edit comment', edit_comment_path %>
-  <%= link_to 'Delete comment', @comment, :method => :delete, :data => { :confirm => 'Are you sure?'} %>
+  <%= link_to 'Edit comment', edit_post_comment_path(@comment.post, @comment) %>
+  <%= link_to 'Delete comment', edit_post_comment_path(@comment.post, @comment), :method => :delete, :data => { :confirm => 'Are you sure?'} %>
 </div>

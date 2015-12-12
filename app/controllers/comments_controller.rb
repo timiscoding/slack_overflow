@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   def index
-    @comments = Comment.all
+    post = Post.find params[:post_id]
+    @comments = post.comments
   end
 
   def show
@@ -14,16 +15,18 @@ class CommentsController < ApplicationController
   def update
     comment = Comment.find params[:id]
     comment.update comment_params
-    redirect_to comment
+    redirect_to comment.post
   end
 
   def new
+    @post = Post.find params[:post_id]
     @comment = Comment.new
   end
 
   def create
-    Comment.create comment_params
-    redirect_to comments_path
+    comment = Comment.create comment_params
+    raise
+    redirect_to post_path(comment.post)
   end
 
   def destroy
@@ -34,6 +37,6 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, :post_id)
   end
 end

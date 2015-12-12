@@ -1,8 +1,10 @@
 <h1>All Comments</h1>
+<% unless @comments.nil? %>
 <ul>
   <% @comments.each do |comment| %>
     <li>
-      <%= link_to comment.content, comment %>
+      <%= link_to comment.content, post_comment_path(comment.post.id, comment.id) %>
     </li>
   <% end %>
 </ul>
+<% end %>

@@ -17,6 +17,9 @@
       <td>
         <%= post.updated_at.strftime('%H:%M:%S %a %e %b %Y') %>
       </td>
+      <td>
+        <%= link_to 'All comments', post_comments_path(post) %>
+      </td>
     </tr>
   <% end %>
 </table>
