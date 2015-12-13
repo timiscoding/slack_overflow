@@ -11,5 +11,7 @@
 #
 
 class Post < ActiveRecord::Base
+  include Elasticsearch::Model # enables search
+  include Elasticsearch::Model::Callbacks # any changes to model will update index
   has_many :comments
 end
