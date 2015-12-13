@@ -1,6 +1,5 @@
 <%= form_for [@post, @comment] do |f| %>
   <p>
-    <%= f.hidden_field :post_id %>
     <%= f.label :content %>
     <%= f.text_area :content %>
   </p>
