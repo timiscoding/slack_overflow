@@ -14,6 +14,8 @@
 #
 
 class User < ActiveRecord::Base
+  validates :name, :presence => true
+  enum role: [:student, :teacher, :admin]
   has_many :posts
   has_many :comments
 end
