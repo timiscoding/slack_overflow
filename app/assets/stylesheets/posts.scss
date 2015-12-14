@@ -9,3 +9,11 @@ div.post {
 div.comment {
   border: 1px dashed blue;
 }
+
+div.post .header {
+  border: 1px dashed black;
+}
+
+div.post .header img {
+  max-width: 10%;
+}

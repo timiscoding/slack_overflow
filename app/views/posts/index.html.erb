@@ -9,6 +9,7 @@
 <table>
   <tr>
     <th>Topic</th>
+    <th>Author</th>
     <th>Created</th>
     <th>Updated</th>
   </tr>
@@ -16,6 +17,9 @@
     <tr>
       <td>
         <%= link_to(post.topic, post) %>
+      </td>
+      <td>
+        <%= post.user.name %>
       </td>
       <td>
         <%= post.created_at.strftime('%a %e %b %Y') %>
