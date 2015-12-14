@@ -13,6 +13,16 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   </p>
+  <% unless params[:action] == "edit" %>
+    <p>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </p>
+  <% end %>
   <p>
     <%= f.label :image %>
     <%= f.url_field :image %>
@@ -25,5 +35,5 @@
     <%= f.label :course %>
     <%= f.text_field :course %>
   </p>
-  <%= f.submit 'Create account' %>
+  <%= f.submit %>
 <% end %>
