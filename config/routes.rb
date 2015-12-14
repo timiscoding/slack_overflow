@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
-  get '/users/edit' => 'users#edit'
-  resources :users, :except => :edit
+  # get '/users/edit' => 'users#edit'
+  resources :users
   resources :posts do
     collection { get :search }
     resources :comments
