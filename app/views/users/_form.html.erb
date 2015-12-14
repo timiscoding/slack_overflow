@@ -29,7 +29,7 @@
   </p>
   <p>
     <%= f.label :role, 'Account type' %>
-    <%= f.select :role, User.roles.map { |key, value| [key.capitalize, key] }, :selected => User.roles[@user.role] %>
+    <%= f.select :role, User.roles.map { |key, value| [key.capitalize, key] }, :selected => @user.role %>
   </p>
   <p>
     <%= f.label :course %>

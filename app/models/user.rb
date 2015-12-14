@@ -7,7 +7,7 @@
 #  email           :text
 #  password_digest :text
 #  image           :text
-#  role            :integer         student, teacher, admin => 0, 1, 2
+#  role            :integer
 #  course          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
