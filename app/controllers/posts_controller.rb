@@ -32,8 +32,8 @@ class PostsController < ApplicationController
     require 'github/markup'
     require 'coderay'
     @post = Post.find params[:id]
-    @content = GitHub::Markup.render('.md', @post.content).html_safe
-    @html = CodeRay.scan("puts 'Hello, world!'", :ruby).div(:line_numbers => :table)
+    html = GitHub::Markup.render('.md', @post.content).html_safe
+    @content = add_syntax_highlight(html)
   end
 
   def destroy
@@ -83,5 +83,21 @@ class PostsController < ApplicationController
   def check_if_author
     post = Post.find params[:id]
     redirect_to post_path(params[:id]) unless @current_user.present? && (@current_user.id == post.user.id || @current_user.admin?)
+  end
+
+  # convert html 'code blocks' into syntax highlighted html with inline styling
+  def add_syntax_highlight(html)
+    doc = Nokogiri::HTML(html)
+    code_blocks = doc.css('code')
+    code_blocks.each do |code_element|
+      code = code_element.content.split "\n"
+      next if code.length == 1 # skipping inline code
+      lang = code[0].strip
+      next if lang.empty? # skipping syntax highlighting as no language provided
+      code = code[1..-1].join("\n")
+      syntax_highlighted_html = CodeRay::scan(code, lang).div(:line_numbers => :table)
+      code_element.inner_html = syntax_highlighted_html
+    end
+    doc
   end
 end
