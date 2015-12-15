@@ -1,0 +1,21 @@
+<h1>All Users</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Course</th>
+    <th>Created</th>
+    <th>Updated</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.name, user %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td><%= user.course %></td>
+      <td><%= user.created_at %></td>
+      <td><%= user.updated_at %></td>
+    </tr>
+  <% end %>
+</table>

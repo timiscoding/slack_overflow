@@ -1,18 +1,45 @@
 
 <div class="post">
   <h1><%= @post.topic %></h1>
-  <%= @post.content %>
+  <div class="header">
+    <p><%= @post.user.name %></p>
+    <p><%= image_tag(@post.user.image) %></p>
+  </div>
+  <div class="content">
+    <p>Posted: <%= @post.created_at %></p>
+    <%= @post.content %>
+  </div>
 </div>
 
 <% @post.comments.each do |comment| %>
   <div class="comment">
-    <%= comment.content %>
-    <%= link_to 'Edit comment', edit_post_comment_path(@post, comment) %>
-    <%= link_to 'Delete comment', post_comment_path(@post, comment), :method => :delete, :data => { :confirm => "Are you sure?"} %>
+    <div class="header">
+      <p><%= comment.user.name %></p>
+      <p><%= image_tag(comment.user.image) %></p>
+    </div>
+    <div class="content">
+      <p>Created: <%= comment.created_at %></p>
+      <%= comment.content %>
+    </div>
+    <% if @current_user.present? && @current_user.id == comment.user.id %>
+      <%= link_to 'Edit comment', edit_post_comment_path(@post, comment) %>
+    <% end %>
+
+    <% if @current_user.present? && @current_user.admin? %>
+      <%= link_to 'Delete comment', post_comment_path(@post, comment), :method => :delete, :data => { :confirm => "Are you sure?"} %>
+    <% end %>
   </div>
 <% end %>
 <div class="controls">
-  <%= link_to 'Add comment', new_post_comment_path(@post) %>
-  <%= link_to 'Edit post', edit_post_path %>
-  <%= link_to 'Delete post', @post, :method => :delete, :data => { :confirm => "Are you sure?" } %>
+  <% if @current_user.present? %>
+    <%= link_to 'Add comment', new_post_comment_path(@post) %>
+  <% end %>
+
+  <% if @current_user.present? && (@current_user.id == @post.user.id || @current_user.admin?) %>
+    <%= link_to 'Edit post', edit_post_path %>
+  <% end %>
+
+  <% if @current_user.present? && @current_user.admin? %>
+    <%= link_to 'Delete post', @post, :method => :delete, :data => { :confirm => "Are you sure?" } %>
+  <% end %>
 </div>
