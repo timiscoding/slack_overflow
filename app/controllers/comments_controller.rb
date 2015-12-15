@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :check_if_logged_in, :only => [:edit, :update, :new, :create]
+  before_action :check_if_logged_in, :only => [:edit, :update, :new, :create, :vote_up, :vote_down]
   before_action :check_if_author, :only => [:edit, :update]
   before_action :check_if_admin, :only => [:destroy]
 
@@ -39,6 +39,24 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find params[:id]
     comment.destroy
+    redirect_to post_path(params[:post_id])
+  end
+
+  def vote_up
+    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Comment'
+    vote.vote = 1
+    comment = Comment.find params[:id]
+    vote.update_attribute(:votable, comment)
+    vote.save
+    redirect_to post_path(params[:post_id])
+  end
+
+  def vote_down
+    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Comment'
+    vote.vote = -1
+    comment = Comment.find params[:id]
+    vote.update_attribute(:votable, comment)
+    vote.save
     redirect_to post_path(params[:post_id])
   end
 

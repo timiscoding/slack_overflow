@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     member { get :vote_up }
     member { get :vote_down }
     collection { get :search }
-    resources :comments
+    resources :comments do
+      member { get :vote_up }
+      member { get :vote_down }
+    end
   end
 end

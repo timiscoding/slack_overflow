@@ -20,6 +20,13 @@
 <% @post.comments.each do |comment| %>
   <div class="comment">
     <div class="header">
+      <p>
+        <%= comment.votes.sum(:vote) %>
+        <% if @current_user.present? %>
+          <%= link_to 'up', vote_up_post_comment_path(@post, comment) %>
+          <%= link_to 'down', vote_down_post_comment_path(@post, comment) %>
+        <% end %>
+      </p>
       <p><%= comment.user.name %></p>
       <p><%= image_tag(comment.user.image) %></p>
     </div>
