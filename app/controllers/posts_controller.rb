@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :check_if_admin, :only => [:destroy]
-  before_action :check_if_logged_in, :only => [:new, :create, :edit, :update]
+  before_action :check_if_logged_in, :only => [:new, :create, :edit, :update, :vote_up, :vote_down]
   before_action :check_if_author, :only => [:edit, :update]
 
   def index
@@ -40,6 +40,24 @@ class PostsController < ApplicationController
   def search
     @posts = Post.search(params[:q]).records
     render :index
+  end
+
+  def vote_up
+    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Post'
+    vote.vote = 1
+    post = Post.find params[:id]
+    vote.update_attribute(:votable, post)
+    vote.save
+    redirect_to post_path(post)
+  end
+
+  def vote_down
+    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Post'
+    vote.vote = -1
+    post = Post.find params[:id]
+    vote.update_attribute(:votable, post)
+    vote.save
+    redirect_to post_path(post)
   end
 
   private

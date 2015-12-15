@@ -1,7 +1,13 @@
 
 <div class="post">
-  <h1><%= @post.topic %></h1>
   <div class="header">
+    <h1><%= @post.topic %></h1>
+    <p><%= @post.votes.sum(:vote) %>
+    <% if @current_user.present? %>
+      <%= link_to 'up', vote_up_post_path(@post) %>
+      <%= link_to 'down', vote_down_post_path(@post) %>
+    <% end %>
+    </p>
     <p><%= @post.user.name %></p>
     <p><%= image_tag(@post.user.image) %></p>
   </div>

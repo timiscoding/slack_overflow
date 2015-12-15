@@ -22,6 +22,14 @@ u1 = User.create(:name => 'vito', :email => 'vito@gmail.com', :image => 'http://
 u2 = User.create(:name => 'jean luc picard', :email => 'admin@gmail.com', :image => 'https://s-media-cache-ak0.pinimg.com/236x/7b/4e/b0/7b4eb0fba26501fef90f06b4b1993a13.jpg', :role => :admin, :password => PASSWORD)
 u3 = User.create(:name => 'larry', :email => 'larry@gmail.com', :image => 'http://gonetworth.com/wp-content/uploads/2013/02/Larry-David-net-worth.jpg', :role => :student, :course => 'wdi12', :password => PASSWORD)
 
+# Vote.destroy_all
+# v1 = Vote.create(:vote => 1)
+# v2 = Vote.create(:vote => 1)
+# v3 = Vote.create(:vote => -1)
+
+# v1.update_attribute(:votable, p1)
+
+
 p1.comments << c1 << c2
 p3.comments << c3
 
