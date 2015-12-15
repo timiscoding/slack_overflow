@@ -30,8 +30,10 @@ class PostsController < ApplicationController
 
   def show
     require 'github/markup'
+    require 'coderay'
     @post = Post.find params[:id]
     @content = GitHub::Markup.render('.md', @post.content).html_safe
+    @html = CodeRay.scan("puts 'Hello, world!'", :ruby).div(:line_numbers => :table)
   end
 
   def destroy

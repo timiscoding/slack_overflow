@@ -29,6 +29,8 @@ gem 'elasticsearch-model'
 gem 'github-markup'
 gem 'redcarpet' # supports .markdown, .mdown, .mkdn, .md
 
+gem 'coderay'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
