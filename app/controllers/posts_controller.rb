@@ -12,7 +12,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create post_params
+    post = Post.new post_params
+    post.user_id = session[:user_id]
+    post.save
     redirect_to posts_path
   end
 
@@ -27,7 +29,9 @@ class PostsController < ApplicationController
   end
 
   def show
+    require 'github/markup'
     @post = Post.find params[:id]
+    @content = GitHub::Markup.render('.md', @post.content).html_safe
   end
 
   def destroy
