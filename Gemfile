@@ -27,12 +27,11 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 # server side md to html rendering
-gem 'github-markup'
-gem 'redcarpet' # supports .markdown, .mdown, .mkdn, .md
+gem 'redcarpet'
 # for code block syntax highlighting
 gem 'coderay'
 gem 'nokogiri'
-
+# page specific js execution
 gem 'paloma'
 
 # Use ActiveModel has_secure_password
@@ -46,6 +45,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'seed_dump'
   gem 'pry-rails'
   gem 'byebug'
 end

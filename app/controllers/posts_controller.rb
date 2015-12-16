@@ -29,10 +29,14 @@ class PostsController < ApplicationController
   end
 
   def show
-    require 'github/markup'
+    # require 'github/markup'
     require 'coderay'
     @post = Post.find params[:id]
-    html = GitHub::Markup.render('.md', @post.content).html_safe
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, safe_links_only: true, with_toc_data: true), fenced_code_blocks: true, disable_indented_code_blocks: true, superscript: true, underline: true, tables: true, autolink: true, strikethrough: true, highlight: true, footnotes: true, no_intra_emphasis: true)
+
+    # html = GitHub::Markup.render('README.markdown', @post.content).html_safe
+    html = markdown.render(@post.content)
+    # raise
     @content = add_syntax_highlight(html)
   end
 
@@ -90,13 +94,10 @@ class PostsController < ApplicationController
     doc = Nokogiri::HTML(html)
     code_blocks = doc.css('code')
     code_blocks.each do |code_element|
-      code = code_element.content.split "\n"
-      next if code.length == 1 # skipping inline code
-      lang = code[0].strip.downcase
-      next if lang.empty? || lang.split.length > 1 # skipping syntax highlighting as invalid language provided
-      code = code[1..-1].join("\n")
-      # raise
-      syntax_highlighted_html = CodeRay::scan(code, lang).div(:line_numbers => :table)
+      next if code_element.content.lines.count == 1
+      lang = code_element.attribute('class').value unless code_element.attribute('class').nil?
+      code = code_element.content
+      syntax_highlighted_html = CodeRay::scan(code, lang || 'code').html(:line_numbers => :table)
       code_element.inner_html = syntax_highlighted_html
     end
     doc
