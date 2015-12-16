@@ -26,11 +26,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
+# server side md to html rendering
 gem 'github-markup'
 gem 'redcarpet' # supports .markdown, .mdown, .mkdn, .md
-
+# for code block syntax highlighting
 gem 'coderay'
 gem 'nokogiri'
+
+gem 'paloma'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

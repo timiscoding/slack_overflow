@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require paloma
 //= require_tree .
+
+$(document).on('page:load', function(){
+  // Manually evaluates the appended script tag.
+  Paloma.executeHook();
+  Paloma.engine.start();
+});
