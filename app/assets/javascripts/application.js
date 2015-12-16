@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require paloma
+//= require remarkable.min
 //= require_tree .
 
 $(document).on('page:load', function(){
