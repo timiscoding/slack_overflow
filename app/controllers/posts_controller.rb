@@ -92,9 +92,10 @@ class PostsController < ApplicationController
     code_blocks.each do |code_element|
       code = code_element.content.split "\n"
       next if code.length == 1 # skipping inline code
-      lang = code[0].strip
-      next if lang.empty? # skipping syntax highlighting as no language provided
+      lang = code[0].strip.downcase
+      next if lang.empty? || lang.split.length > 1 # skipping syntax highlighting as invalid language provided
       code = code[1..-1].join("\n")
+      # raise
       syntax_highlighted_html = CodeRay::scan(code, lang).div(:line_numbers => :table)
       code_element.inner_html = syntax_highlighted_html
     end
