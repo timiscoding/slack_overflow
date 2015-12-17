@@ -28,7 +28,7 @@
     <div class="col-lg-5">
       <%= f.text_area :content_md, :class => 'form-control', :rows => 15 %>
     </div>
-    <div class="col-lg-5" id="preview" style="overflow:scroll"><%== @post.content_html %></div>
+    <div class="col-lg-5" id="preview" style="overflow:scroll; height:300px"><%== @post.content_html %></div>
     <%=f.error_span(:content_md) %>
   </div>
 
