@@ -11,11 +11,19 @@ CommentsController = Paloma.controller('Comments');
     update_preview();
   };
 
+  PostsController.prototype.create = function(){
+    update_preview();
+  };
+
   CommentsController.prototype.new = function(){
     update_preview();
   }
 
   CommentsController.prototype.edit = function(){
+    update_preview();
+  }
+
+  CommentsController.prototype.update = function(){
     update_preview();
   }
 

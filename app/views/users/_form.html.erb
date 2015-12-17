@@ -1,39 +1,78 @@
-<% if @errors.present? && @errors.any? %>
-  <% @errors.each do |error| %>
-    <p><%= error %></p>
-  <% end %>
-<% end %>
+<%= form_for @user, :html => { :class => "form-horizontal user" } do |f| %>
 
-<%= form_for @user do |f| %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </p>
-  <% unless params[:action] == "edit" %>
-    <p>
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-    </p>
-    <p>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-    </p>
+  <% if @user.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
   <% end %>
-  <p>
-    <%= f.label :image %>
-    <%= f.url_field :image %>
-  </p>
-  <p>
-    <%= f.label :role, 'Account type' %>
-    <%= f.select :role, User.roles.map { |key, value| [key.capitalize, key] }, :selected => @user.role %>
-  </p>
-  <p>
-    <%= f.label :course %>
-    <%= f.text_field :course %>
-  </p>
-  <%= f.submit %>
+
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:email) %>
+  </div>
+   <% unless params[:action] == "edit" %>
+    <div class="form-group">
+      <%= f.label :password, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.password_field :password, :class => 'form-control' %>
+      </div>
+      <%=f.error_span(:password) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.password_field :password_confirmation, :class => 'form-control' %>
+      </div>
+      <%=f.error_span(:password_confirmation) %>
+    </div>
+   <% end %>
+  <div class="form-group">
+    <%= f.label :image, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :image, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:image) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :role, 'Account type', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select :role, User.roles.map {|key, value| [key.capitalize, key]}, {:selected => @user.role}, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:role) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :course, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :course, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:course) %>
+  </div>
+
+    <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                users_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
 <% end %>
