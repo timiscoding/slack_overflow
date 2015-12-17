@@ -1,36 +1,35 @@
-<h1>All posts</h1>
+<%- model_class = Post -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
 
-<%= form_tag(search_posts_path, :method => :get) do %>
-  <%= label_tag :q, :Search %>
-  <%= text_field_tag :q, params[:q] %>
-  <%= submit_tag :Find %>
+<% if @current_user.present? %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+new_post_path,
+:class => 'btn btn-primary' %>
 <% end %>
 
-<table>
-  <tr>
-    <th>Votes</th>
-    <th>Topic</th>
-    <th>Author</th>
-    <th>Created</th>
-    <th>Updated</th>
-  </tr>
-  <% @posts.each do |post| %>
+<table class="table table-striped">
+  <thead>
     <tr>
-      <td>
-        <%= post.votes.sum(:vote) %>
-      </td>
-      <td>
-        <%= link_to(post.topic, post) %>
-      </td>
-      <td>
-        <%= post.user.name %>
-      </td>
-      <td>
-        <%= post.created_at.strftime('%a %e %b %Y') %>
-      </td>
-      <td>
-        <%= time_ago_in_words(post.last_update) %>
-      </td>
+      <th>Votes</th>
+      <th>Topic</th>
+      <th>Author</th>
+      <th>Created</th>
+      <th>Last updated</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.votes.sum(:vote) %></td>
+        <td><%= link_to(post.topic, post) %></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.created_at.strftime('%a %e %b %Y') %></td>
+        <td><%= time_ago_in_words(post.last_update) %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+

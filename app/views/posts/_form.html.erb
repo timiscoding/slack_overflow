@@ -1,19 +1,43 @@
-<% if @errors.present? && @errors.any? %>
-  <% @errors.each do |error| %>
-    <%= error %>
+<%= form_for @post, :html => { :class => "form-horizontal post" } do |f| %>
+
+  <% if @post.errors.present? && @post.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
   <% end %>
-<% end %>
 
-<%= form_for @post do |f| %>
-  <p>
-    <%= f.label :topic %>
-    <%= f.text_field :topic, :required => true %>
-  </p>
-  <p>
-    <%= f.label :content_md, :Content %>
-    <%= f.text_area :content_md, :required => true, :size => '50x20' %>
-  </p>
-  <%= f.submit %>
-<% end %>
+  <div class="form-group">
+    <%= f.label :topic, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :topic, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:topic) %>
+  </div>
 
-<div id="preview" style="display: inline-block; border: 1px solid black; width: 400px; height: 600px; vertical-align: top; overflow:scroll"><%== @post.content_html %></div>
+  <div class="form-group">
+    <%= f.label :content_md, :Content, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_area :content_md, :class => 'form-control', :rows => 15 %>
+    </div>
+    <div class="col-lg-5" id="preview" style="overflow:scroll"><%== @post.content_html %></div>
+    <%=f.error_span(:content_md) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                posts_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

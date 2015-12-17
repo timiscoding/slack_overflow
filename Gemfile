@@ -34,6 +34,10 @@ gem 'nokogiri'
 # page specific js execution
 gem 'paloma'
 
+  gem 'therubyracer'
+  gem 'less-rails'
+  gem 'twitter-bootstrap-rails'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
