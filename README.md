@@ -4,9 +4,13 @@
 
 Currently at General Assembly, the primary form of online communication is through slack chat. While it is a great tool to collaborate and for teachers to submit useful information and links, those resources get buried over time by general chat messages making it harder to find.
 
+[Project Proposal](https://docs.google.com/presentation/d/1HWT0R8dTn3akpUkuyHaLjJ5UCalPNXmWz3L3Y7SDDt8/edit?usp=sharing)
+
 ## Solution
 
 Slack overflow is a forum intended for students and teachers at General Assembly where they can discuss course material, ask questions and post valuable resources where the most important information stays visible.
+
+[Model](https://drive.google.com/file/d/0B6JIIawp8JvsZWF5aUg5WDdhX3M/view?usp=sharing)
 
 ###Features:
 
@@ -18,6 +22,8 @@ Slack overflow is a forum intended for students and teachers at General Assembly
 * Post title and content keyword search
 
 * Write post and comments in markdown with live HTML preview
+
+[Project management](https://docs.google.com/spreadsheets/d/1fm6DrK3tP9h6d8XQxEvHuuvlaWYrqTgvSJExGRNU9k8/edit?usp=sharing)
 
 ## Demo
 
@@ -35,6 +41,8 @@ student | mark@gmail.com | chicken
 ## Requirements
 
 * ruby 2.2.3p173
+
+* rails 4
 
 * gem dependencies
   * elasticsearch-rails
