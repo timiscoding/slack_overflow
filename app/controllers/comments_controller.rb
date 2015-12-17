@@ -19,8 +19,14 @@ class CommentsController < ApplicationController
 
   def update
     comment = Comment.find params[:id]
-    comment.update comment_params
-    redirect_to comment.post
+    if comment.update comment_params
+      redirect_to comment.post
+    else
+      @errors = comment.errors.full_messages
+      @comment = comment
+      @post = Post.find params[:post_id]
+      render :edit
+    end
   end
 
   def new
@@ -32,8 +38,14 @@ class CommentsController < ApplicationController
     comment = Comment.new comment_params
     comment.user_id = @current_user.id
     comment.post_id = params[:post_id]
-    comment.save
-    redirect_to post_path(comment.post)
+    if comment.save
+      redirect_to post_path(comment.post)
+    else
+      @errors = comment.errors.full_messages
+      @comment = comment
+      @post = Post.find params[:post_id]
+      render :new
+    end
   end
 
   def destroy

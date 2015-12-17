@@ -15,8 +15,13 @@ class PostsController < ApplicationController
   def create
     post = Post.new post_params
     post.user_id = session[:user_id]
-    post.save
-    redirect_to posts_path
+    if post.save
+      redirect_to posts_path
+    else
+      @errors = post.errors.full_messages
+      @post = post
+      render :new
+    end
   end
 
   def edit
@@ -25,8 +30,13 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find params[:id]
-    post.update post_params
-    redirect_to post
+    if post.update post_params
+      redirect_to post
+    else
+      @errors = post.errors.full_messages
+      @post = post
+      render :edit
+    end
   end
 
   def show

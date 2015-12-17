@@ -16,6 +16,9 @@ class Post < ActiveRecord::Base
   include Elasticsearch::Model::Callbacks # any changes to model will update index
   include Parsable
 
+  validates :topic, :presence => true
+  validates :content_md, :presence => true
+
   before_save :md_to_html
   before_update :md_to_html
 

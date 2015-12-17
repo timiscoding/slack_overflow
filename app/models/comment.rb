@@ -17,6 +17,8 @@ class Comment < ActiveRecord::Base
   before_save :md_to_html
   before_update :md_to_html
 
+  validates :content_md, :presence => true
+
   belongs_to :post
   belongs_to :user
   has_many :votes, as: :votable
