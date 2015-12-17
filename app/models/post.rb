@@ -21,10 +21,10 @@ class Post < ActiveRecord::Base
 
   before_save :md_to_html
   before_update :md_to_html
+  after_save :last_update
+  after_update :last_update
 
   has_many :comments
   belongs_to :user
   has_many :votes, as: :votable
-
-
 end

@@ -8,6 +8,7 @@
 
 <table>
   <tr>
+    <th>Votes</th>
     <th>Topic</th>
     <th>Author</th>
     <th>Created</th>
@@ -15,6 +16,9 @@
   </tr>
   <% @posts.each do |post| %>
     <tr>
+      <td>
+        <%= post.votes.sum(:vote) %>
+      </td>
       <td>
         <%= link_to(post.topic, post) %>
       </td>
@@ -25,7 +29,7 @@
         <%= post.created_at.strftime('%a %e %b %Y') %>
       </td>
       <td>
-        <%= post.updated_at.strftime('%H:%M:%S %a %e %b %Y') %>
+        <%= time_ago_in_words(post.last_update) %>
       </td>
     </tr>
   <% end %>

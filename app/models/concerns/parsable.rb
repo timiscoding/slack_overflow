@@ -1,5 +1,4 @@
 module Parsable extend ActiveSupport::Concern
-  # private
   def md_to_html
     parser = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, safe_links_only: true, with_toc_data: true), fenced_code_blocks: true, disable_indented_code_blocks: true, superscript: true, underline: true, tables: true, autolink: true, strikethrough: true, highlight: true, footnotes: true, no_intra_emphasis: true)
     html = parser.render(self.content_md)
@@ -19,5 +18,15 @@ module Parsable extend ActiveSupport::Concern
       code_element.inner_html = syntax_highlighted_html
     end
     doc
+  end
+
+  def last_update
+    if self.instance_of? Post
+      self.last_update = self.updated_at
+    elsif self.instance_of? Comment
+      return if self.post.nil?
+      self.post.last_update = self.updated_at
+      self.post.save
+    end
   end
 end

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :check_if_author, :only => [:edit, :update]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(:created_at)
     js false # tell paloma to ignore action
   end
 
