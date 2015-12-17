@@ -23,6 +23,8 @@ Slack overflow is a forum intended for students and teachers at General Assembly
 
 * Write post and comments in markdown with live HTML preview
 
+* Code block syntax highlighting
+
 [Project management](https://docs.google.com/spreadsheets/d/1fm6DrK3tP9h6d8XQxEvHuuvlaWYrqTgvSJExGRNU9k8/edit?usp=sharing)
 
 ## Demo
@@ -67,6 +69,7 @@ rake db:seed
 ```
 
 ## Deployment instructions
+Install then run the [postgresql server app](http://postgresapp.com/)
 
 ```
 // install a local elasticsearch server
