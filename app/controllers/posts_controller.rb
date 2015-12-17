@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    js false # tell paloma to ignore action
   end
 
   def new
@@ -29,15 +30,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    # require 'github/markup'
-    require 'coderay'
     @post = Post.find params[:id]
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, safe_links_only: true, with_toc_data: true), fenced_code_blocks: true, disable_indented_code_blocks: true, superscript: true, underline: true, tables: true, autolink: true, strikethrough: true, highlight: true, footnotes: true, no_intra_emphasis: true)
-
-    # html = GitHub::Markup.render('README.markdown', @post.content).html_safe
-    html = markdown.render(@post.content)
-    # raise
-    @content = add_syntax_highlight(html)
+    js false # tell paloma to ignore action
   end
 
   def destroy
@@ -50,6 +44,7 @@ class PostsController < ApplicationController
   def search
     @posts = Post.search(params[:q]).records
     render :index
+    js false # tell paloma to ignore action
   end
 
   def vote_up
@@ -59,6 +54,7 @@ class PostsController < ApplicationController
     vote.update_attribute(:votable, post)
     vote.save
     redirect_to post_path(post)
+    js false # tell paloma to ignore action
   end
 
   def vote_down
@@ -68,11 +64,12 @@ class PostsController < ApplicationController
     vote.update_attribute(:votable, post)
     vote.save
     redirect_to post_path(post)
+    js false # tell paloma to ignore action
   end
 
   private
   def post_params
-    params.require(:post).permit(:topic, :content)
+    params.require(:post).permit(:topic, :content_md)
   end
 
   def check_if_logged_in
@@ -87,19 +84,5 @@ class PostsController < ApplicationController
   def check_if_author
     post = Post.find params[:id]
     redirect_to post_path(params[:id]) unless @current_user.present? && (@current_user.id == post.user.id || @current_user.admin?)
-  end
-
-  # convert html 'code blocks' into syntax highlighted html with inline styling
-  def add_syntax_highlight(html)
-    doc = Nokogiri::HTML(html)
-    code_blocks = doc.css('code')
-    code_blocks.each do |code_element|
-      next if code_element.content.lines.count == 1
-      lang = code_element.attribute('class').value unless code_element.attribute('class').nil?
-      code = code_element.content
-      syntax_highlighted_html = CodeRay::scan(code, lang || 'code').html(:line_numbers => :table)
-      code_element.inner_html = syntax_highlighted_html
-    end
-    doc
   end
 end

@@ -1,7 +1,9 @@
 <%= form_for [@post, @comment] do |f| %>
   <p>
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= f.label :content_md %>
+    <%= f.text_area :content_md %>
   </p>
   <%= f.submit %>
 <% end %>
+
+<div id="preview" style="display: inline-block; border: 1px solid black; width: 400px; height: 600px; vertical-align: top; overflow:scroll"><%== @comment.content_html %></div>

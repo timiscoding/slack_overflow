@@ -13,8 +13,7 @@
   </div>
   <div class="content">
     <p>Posted: <%= @post.created_at %></p>
-    <%== @content %>
-    <%== @html %>
+    <%== @post.content_html %>
   </div>
 </div>
 
@@ -33,7 +32,7 @@
     </div>
     <div class="content">
       <p>Created: <%= comment.created_at %></p>
-      <%= comment.content %>
+      <%== comment.content_html %>
     </div>
     <% if @current_user.present? && @current_user.id == comment.user.id %>
       <%= link_to 'Edit comment', edit_post_comment_path(@post, comment) %>
