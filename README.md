@@ -40,6 +40,10 @@ student | vito@gmail.com | chicken
 student | larry@gmail.com | chicken
 student | mark@gmail.com | chicken
 
+## Thanks
+
+Jack for helping me with authentication and authorisation. Joel for helping me improve my model and introduce new techniques like callback hooks (before_save) and polymorphic associations. Ben helped me with how to use Nokogiri. Angie told me about the twitter bootstrap gem, saving me hours of css styling.
+
 ## Requirements
 
 * ruby 2.2.3p173
