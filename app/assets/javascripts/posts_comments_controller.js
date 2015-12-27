@@ -6,8 +6,8 @@ CommentsController = Paloma.controller('Comments');
 var update_preview = function(){
   $(document).ready(function(){
     var md = new Remarkable();
-    $('textarea').on('keyup', function(e){
-        $('#preview').html(md.render($(this).val()));
+    $('.md-input').on('keyup', function(e){
+        $('.preview').html(md.render($(this).val()));
     });
   });
 };

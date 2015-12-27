@@ -15,11 +15,14 @@
 
 <%= form_for [@post, @comment], :html => { :class => "form-horizontal post" } do |f| %>
   <div class="form-group">
-    <%= f.label :content_md, :Content,  :class => 'control-label col-lg-2' %>
-    <div class="col-lg-5">
-    <%= f.text_area :content_md, :required => true, :class => 'form-control', :rows => 15  %>
+    <div class="col-lg-6">
+      <%= f.label :content_md, :Content %>
+      <%= f.text_area :content_md, :required => true, :class => 'form-control md-input' %>
     </div>
-    <div class="col-lg-5" id="preview" style="overflow:scroll"><%== @comment.content_html %></div>
+    <div class="col-lg-6">
+      <%= f.label "Live markdown to HTML preview" %>
+      <div class="preview"><%== @comment.content_html %></div>
+    </div>
   </div>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

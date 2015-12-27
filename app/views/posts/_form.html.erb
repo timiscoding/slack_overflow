@@ -15,25 +15,30 @@
     </div>
   <% end %>
 
+    <%= f.label :topic %>
   <div class="form-group">
-    <%= f.label :topic, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :topic, :class => 'form-control' %>
-    </div>
+    <div class="col-lg-12">
+    <%= f.text_field :topic, :class => 'form-control' %>
     <%=f.error_span(:topic) %>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :content_md, :Content, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-5">
-      <%= f.text_area :content_md, :class => 'form-control', :rows => 15 %>
+    <div class="col-lg-6">
+      <%= f.label :content_md, :Content %>
+      <%= f.text_area :content_md, :class => 'form-control md-input' %>
     </div>
-    <div class="col-lg-5" id="preview" style="overflow:scroll; height:300px"><%== @post.content_html %></div>
+    <div class="col-lg-6">
+      <%= f.label "Live markdown to HTML preview" %>
+      <div class="preview">
+        <%== @post.content_html %>
+      </div>
+    </div>
     <%=f.error_span(:content_md) %>
   </div>
 
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+    <div class="col-lg-12">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 posts_path, :class => 'btn btn-default' %>
