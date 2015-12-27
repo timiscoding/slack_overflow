@@ -13,7 +13,6 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:image) %></th>
       <th><%= model_class.human_attribute_name(:role) %></th>
       <th><%= model_class.human_attribute_name(:course) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -26,10 +25,9 @@
         <td><%= link_to user.id, user_path(user) %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= user.image %></td>
         <td><%= user.role %></td>
         <td><%= user.course %></td>
-        <td><%=l user.created_at %></td>
+        <td><%= user.created_at.strftime '%a %d %b %Y at %H:%M' %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-default btn-xs' %>

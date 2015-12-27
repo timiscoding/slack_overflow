@@ -15,9 +15,9 @@
   <dt><strong><%= model_class.human_attribute_name(:course) %>:</strong></dt>
   <dd><%= @user.course %></dd>
   <dt><strong>Joined:</strong></dt>
-  <dd><%= @user.created_at %></dd>
+  <dd><%= @user.created_at.strftime '%a %d %b %Y at %H:%M' %></dd>
   <dt><strong>Updated:</strong></dt>
-  <dd><%= @user.updated_at %></dd>
+  <dd><%= @user.updated_at.strftime '%a %d %b %Y at %H:%M' %></dd>
 </dl>
 
 <%= link_to 'Back',
