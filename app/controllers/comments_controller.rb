@@ -22,7 +22,6 @@ class CommentsController < ApplicationController
     if comment.update comment_params
       redirect_to comment.post
     else
-      @errors = comment.errors.full_messages
       @comment = comment
       @post = Post.find params[:post_id]
       render :edit
