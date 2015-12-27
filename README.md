@@ -51,16 +51,39 @@ Jack for helping me with authentication and authorisation. Joel for helping me i
 * rails 4
 
 * gem dependencies
-  * elasticsearch-rails
-  * elasticsearch-model
-  * redcarpet
-  * coderay
-  * nokogiri
-  * paloma
-  * bcrypt
-  * therubyracer
-  * less-rails
-  * twitter-bootstrap-rails
+  For forum post search:
+  * [elasticsearch-rails](https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-rails)
+  * [elasticsearch-model](https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-model)
+
+  For server side markdown parsing
+  * [redcarpet](https://github.com/vmg/redcarpet)
+
+  For code block syntax highlighting:
+  * [coderay](https://github.com/rubychan/coderay)
+  * [nokogiri](https://github.com/sparklemotion/nokogiri)
+
+  For page specific javascript:
+  * [paloma](https://github.com/kbparagua/paloma)
+
+  For password hashing:
+  * [bcrypt](https://github.com/codahale/bcrypt-ruby)
+
+  For styling:
+  * [therubyracer](https://rubygems.org/gems/therubyracer/versions/0.12.2)
+  * [less-rails](https://github.com/metaskills/less-rails)
+  * [twitter-bootstrap-rails](https://github.com/seyhunak/twitter-bootstrap-rails)
+
+* [remarkable jquery plugin](https://github.com/jonschlinkert/remarkable)
+
+## Bugs
+
+* Account registration lets users sign up as admin
+* When making/editing a post/comment, live preview renders code blocks differently to the posted content. This is because 2 different parsers are used: remarkable jquery plugin for client side and redcarpet for server side
+* live preview italicises when wrapping text with single underscores but after submitting, the text is underlined.
+* After casting a vote, there is no way to undo the vote
+* There is no difference between teacher and student accounts. The plan was to style comments/posts so students could easily spot their posts. I didn't have enough time to implement this.
+* User pictures spill out of panel headers
+* Going into your user profile causes a undefined controller error in console
 
 ## Configuration
 
