@@ -39,6 +39,13 @@ Implemented Jack's (GA instructor) feedback:
 * styling has been cleaned up
 * timestamps more human readable
 
+New updates
+* Votes are updated via AJAX with HTML fallback
+* Users can undo a vote by clicking their previous vote button
+* Vote buttons change to green when a vote has been cast
+* When making a post, it is automatically upvoted by the author
+* Post and comment editor styling looks better
+
 ## Demo
 
 [Try it out now](https://slack-overflow-app.herokuapp.com/)
@@ -86,6 +93,8 @@ Jack for helping me with authentication and authorisation. Joel for helping me i
 * User pictures spill out of panel headers
 * Going into your user profile causes a undefined controller error in console
 * Undefined controller in console when refreshing a post
+* toggling between up down votes causes buttons to turn into links
+* voting on a comment causes the comment to drop to the bottom on page refresh
 
 ## Configuration
 

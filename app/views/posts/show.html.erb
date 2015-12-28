@@ -12,16 +12,8 @@
       <li><strong>Votes:</strong>
         <span class="score"><%= @post.score %></span>
         <% if @current_user.present? %>
-          <% if @votes[:post] == 1 %>
-            <%= link_to 'up', vote_up_post_path(@post), :class => 'vote btn btn-success', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'up' }%>
-          <% else %>
-            <%= link_to 'up', vote_up_post_path(@post), :class => 'vote btn btn-default', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'up' }%>
-          <% end %>
-          <% if @votes[:post] == -1 %>
-            <%= link_to 'down', vote_down_post_path(@post), :class => 'vote btn btn-success', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'down' } %>
-          <% else %>
-            <%= link_to 'down', vote_down_post_path(@post), :class => 'vote btn btn-default', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'down' }%>
-          <% end %>
+            <%= link_to 'up', vote_up_post_path(@post), :class => "vote btn #{ @votes[:post] == 1 ? 'btn-success' : 'btn-default' }", :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'up' } %>
+            <%= link_to 'down', vote_down_post_path(@post), :class => "vote btn #{ @votes[:post] == -1 ? 'btn-success' : 'btn-default' }", :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'down' } %>
         <% end %>
       </li>
       <li><strong>Author:</strong>
@@ -46,10 +38,10 @@
     </div>
     <ul class="list-inline">
       <li><strong>Votes:</strong>
-        <span class="votes"><%= comment.votes.sum(:vote) %></span>
+        <span class="score"><%= comment.score %></span>
         <% if @current_user.present? %>
-          <%= link_to 'up', vote_up_post_comment_path(@post, comment), :class => 'btn btn-default', :role => 'button' %>
-          <%= link_to 'down', vote_down_post_comment_path(@post, comment), :class => 'btn btn-default', :role => 'button' %>
+          <%= link_to 'up', vote_up_post_comment_path(@post, comment), :class => "vote btn #{ @votes[:comments][comment.id.to_s.to_sym] == 1 ? 'btn-success' : 'btn-default' }", :role => 'button', :data => { :remote => true, :type => 'json' } %>
+          <%= link_to 'down', vote_down_post_comment_path(@post, comment), :class => "vote btn #{ @votes[:comments][comment.id.to_s.to_sym] == -1 ? 'btn-success' : 'btn-default' }", :role => 'button', :data => { :remote => true, :type => 'json' }  %>
         <% end %>
       </li>
       <li><strong>Author:</strong>

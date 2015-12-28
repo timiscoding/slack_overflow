@@ -44,8 +44,14 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find params[:id]
+    postVote = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => @post.id)
+    commentVotes = @current_user.votes.where(:votable_type => 'Comment').select { |comment| comment.votable.post.id == @post.id }
     @votes = {}
-    @votes[:post] = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => @post.id).value
+    @votes[:post] = postVote.value unless postVote.nil?
+    @votes[:comments] = {} unless commentVotes.nil?
+    commentVotes.each do |commentVote|
+      @votes[:comments][commentVote.votable_id.to_s.to_sym] = commentVote.value
+    end
   end
 
   def destroy

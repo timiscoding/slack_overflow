@@ -56,13 +56,29 @@ class CommentsController < ApplicationController
   end
 
   def vote_up
-    vote 1
-    redirect_to post_path params[:post_id]
+    respond_to do |format|
+      score = vote(1, 'Comment', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
   end
 
   def vote_down
-    vote -1
-    redirect_to post_path params[:post_id]
+    respond_to do |format|
+      score = vote(-1, 'Comment', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
   end
 
   private

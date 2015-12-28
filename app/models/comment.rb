@@ -9,6 +9,7 @@
 #  content_html :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  score        :integer          default(0)
 #
 
 class Comment < ActiveRecord::Base
