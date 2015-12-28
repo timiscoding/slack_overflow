@@ -10,10 +10,18 @@
     </div>
     <ul class="list-inline">
       <li><strong>Votes:</strong>
-        <%= @post.votes.sum(:vote) %>
+        <span class="score"><%= @post.score %></span>
         <% if @current_user.present? %>
-          <%= link_to 'up', vote_up_post_path(@post), :class => 'btn btn-default', :role => 'button' %>
-          <%= link_to 'down', vote_down_post_path(@post), :class => 'btn btn-default', :role => 'button' %>
+          <% if @votes[:post] == 1 %>
+            <%= link_to 'up', vote_up_post_path(@post), :class => 'vote btn btn-success', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'up' }%>
+          <% else %>
+            <%= link_to 'up', vote_up_post_path(@post), :class => 'vote btn btn-default', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'up' }%>
+          <% end %>
+          <% if @votes[:post] == -1 %>
+            <%= link_to 'down', vote_down_post_path(@post), :class => 'vote btn btn-success', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'down' } %>
+          <% else %>
+            <%= link_to 'down', vote_down_post_path(@post), :class => 'vote btn btn-default', :role => 'button', :data => { :remote => true, :type => 'json', :vote => 'down' }%>
+          <% end %>
         <% end %>
       </li>
       <li><strong>Author:</strong>
@@ -38,7 +46,7 @@
     </div>
     <ul class="list-inline">
       <li><strong>Votes:</strong>
-        <%= comment.votes.sum(:vote) %>
+        <span class="votes"><%= comment.votes.sum(:vote) %></span>
         <% if @current_user.present? %>
           <%= link_to 'up', vote_up_post_comment_path(@post, comment), :class => 'btn btn-default', :role => 'button' %>
           <%= link_to 'down', vote_down_post_comment_path(@post, comment), :class => 'btn btn-default', :role => 'button' %>

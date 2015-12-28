@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     post = Post.new post_params
     post.user_id = session[:user_id]
     if post.save
+      vote 1, 'post', post.id, session[:user_id]
       redirect_to posts_path
     else
       @errors = post.errors.full_messages
@@ -43,7 +44,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find params[:id]
-    js false # tell paloma to ignore action
+    @votes = {}
+    @votes[:post] = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => @post.id).value
   end
 
   def destroy
@@ -60,14 +62,30 @@ class PostsController < ApplicationController
   end
 
   def vote_up
-    vote 1
-    redirect_to post_path params[:id]
+    respond_to do |format|
+      score = vote(1, 'Post', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
     js false # tell paloma to ignore action
   end
 
   def vote_down
-    vote -1
-    redirect_to post_path params[:id]
+    respond_to do |format|
+      score = vote(-1, 'Post', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
     js false # tell paloma to ignore action
   end
 

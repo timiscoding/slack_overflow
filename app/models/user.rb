@@ -22,4 +22,5 @@ class User < ActiveRecord::Base
   enum role: [:student, :teacher, :admin]
   has_many :posts
   has_many :comments
+  has_many :votes
 end

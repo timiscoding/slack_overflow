@@ -22,7 +22,7 @@ new_post_path,
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.votes.sum(:vote) %></td>
+        <td><%= post.score %></td>
         <td><%= link_to(post.topic, post) %></td>
         <td><%= post.user.name %></td>
         <td><%= post.created_at.strftime('%a %e %b %Y') %></td>
