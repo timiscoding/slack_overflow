@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :check_if_admin, :only => [:destroy]
   before_action :check_if_logged_in, :only => [:new, :create, :edit, :update, :vote_up, :vote_down]
   before_action :check_if_author, :only => [:edit, :update]
+  before_action :show_users_votes, :only => [:show]
 
   include Votable
 
@@ -44,14 +45,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find params[:id]
-    postVote = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => @post.id)
-    commentVotes = @current_user.votes.where(:votable_type => 'Comment').select { |comment| comment.votable.post.id == @post.id }
-    @votes = {}
-    @votes[:post] = postVote.value unless postVote.nil?
-    @votes[:comments] = {} unless commentVotes.nil?
-    commentVotes.each do |commentVote|
-      @votes[:comments][commentVote.votable_id.to_s.to_sym] = commentVote.value
-    end
   end
 
   def destroy
@@ -112,5 +105,17 @@ class PostsController < ApplicationController
   def check_if_author
     post = Post.find params[:id]
     redirect_to post_path(params[:id]) unless @current_user.present? && (@current_user.id == post.user.id || @current_user.admin?)
+  end
+
+  def show_users_votes
+    return if @current_user.nil?
+    postVote = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => params[:id])
+    commentVotes = @current_user.votes.where(:votable_type => 'Comment').select { |comment| comment.votable.post.id == params[:id].to_i }
+    @votes = {}
+    @votes[:post] = postVote.value unless postVote.nil?
+    @votes[:comments] = {} unless commentVotes.nil?
+    commentVotes.each do |commentVote|
+      @votes[:comments][commentVote.votable_id.to_s.to_sym] = commentVote.value
+    end
   end
 end
