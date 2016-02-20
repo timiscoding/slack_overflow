@@ -12,7 +12,7 @@ Slack overflow is a forum intended for students and teachers at General Assembly
 
 [Model](https://drive.google.com/file/d/0B6JIIawp8JvsZWF5aUg5WDdhX3M/view?usp=sharing)
 
-###Features:
+## Features:
 
 * There are 4 different types of users, each inheriting all the privileges of those below them:
   * admin - delete posts, comments, users
@@ -26,6 +26,25 @@ Slack overflow is a forum intended for students and teachers at General Assembly
 * Code block syntax highlighting
 
 [Project management](https://docs.google.com/spreadsheets/d/1fm6DrK3tP9h6d8XQxEvHuuvlaWYrqTgvSJExGRNU9k8/edit?usp=sharing)
+
+## Updates since project deadline
+
+To preserve the work I accomplished during project week, I have created a new branch called `extra`. These are the updates I have implemented during my free time:
+
+Implemented Jack's (GA instructor) feedback:
+* refactored live preview javascript
+* moved 3rd party css to vendor/assets folder
+* bootstrap styling was using LESS css preprocessor. They have been replaced with plain css. Rails uses SASS by default so it makes sense to stick with one.
+* voting actions have been abstracted into a controller concern
+* styling has been cleaned up
+* timestamps more human readable
+
+New updates
+* Votes are updated via AJAX with HTML fallback
+* Users can undo a vote by clicking their previous vote button
+* Vote buttons change to green when a vote has been cast
+* When making a post, it is automatically upvoted by the author
+* Post and comment editor styling looks better
 
 ## Demo
 
@@ -73,6 +92,9 @@ Jack for helping me with authentication and authorisation. Joel for helping me i
 * There is no difference between teacher and student accounts. The plan was to style comments/posts so students could easily spot their posts. I didn't have enough time to implement this.
 * User pictures spill out of panel headers
 * Going into your user profile causes a undefined controller error in console
+* Undefined controller in console when refreshing a post
+* toggling between up down votes causes buttons to turn into links
+* voting on a comment causes the comment to drop to the bottom on page refresh
 
 ## Configuration
 

@@ -3,7 +3,7 @@
 # Table name: votes
 #
 #  id           :integer          not null, primary key
-#  vote         :integer
+#  value        :integer
 #  votable_id   :integer
 #  votable_type :string
 #  user_id      :integer

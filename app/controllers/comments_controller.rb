@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   before_action :check_if_author, :only => [:edit, :update]
   before_action :check_if_admin, :only => [:destroy]
 
+  include Votable
+
   def index
     post = Post.find params[:post_id]
     @comments = post.comments
@@ -22,7 +24,6 @@ class CommentsController < ApplicationController
     if comment.update comment_params
       redirect_to comment.post
     else
-      @errors = comment.errors.full_messages
       @comment = comment
       @post = Post.find params[:post_id]
       render :edit
@@ -55,21 +56,29 @@ class CommentsController < ApplicationController
   end
 
   def vote_up
-    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Comment'
-    vote.vote = 1
-    comment = Comment.find params[:id]
-    vote.update_attribute(:votable, comment)
-    vote.save
-    redirect_to post_path(params[:post_id])
+    respond_to do |format|
+      score = vote(1, 'Comment', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
   end
 
   def vote_down
-    vote = Vote.find_or_initialize_by :user_id => session[:user_id], :votable_id => params[:id], :votable_type => 'Comment'
-    vote.vote = -1
-    comment = Comment.find params[:id]
-    vote.update_attribute(:votable, comment)
-    vote.save
-    redirect_to post_path(params[:post_id])
+    respond_to do |format|
+      score = vote(-1, 'Comment', params[:id], session[:user_id])
+      if !score.nil?
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'ok', :score => score } }
+      else
+        format.html { redirect_to post_path params[:post_id] }
+        format.js { render :json => { :status => 'error' } }
+      end
+    end
   end
 
   private

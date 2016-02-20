@@ -10,6 +10,24 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require twitter-bootstrap-static/bootstrap
+ *= require twitter-bootstrap-static/fontawesome
+ *= require coderay
  *= require_tree .
  *= require_self
  */
+
+div.preview {
+  overflow: auto;
+  border: 1px solid grey;
+  background-color: rgb(250,250,250);
+  padding: 0.5em;
+}
+
+div.preview, textarea.md-input {
+  height: 50vh;
+}
+
+textarea.md-input {
+  resize: none;
+}
