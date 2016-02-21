@@ -13,15 +13,21 @@
   </div>
 <% end %>
 
+<div class="row">
+<div id="popoverWrapper" class="col-lg-7"></div>
+</div>
+
 <%= form_for [@post, @comment], :html => { :class => "form-horizontal post" } do |f| %>
   <div class="form-group">
     <div class="col-lg-6">
       <%= f.label :content_md, :Content %>
+      <%= render :partial => 'posts/markdownHelpPopover' %>
       <%= f.text_area :content_md, :required => true, :class => 'form-control md-input' %>
     </div>
     <div class="col-lg-6">
       <%= f.label "Live markdown to HTML preview" %>
-      <div class="preview"><%== @comment.content_html %></div>
+      <div class="preview content-html"><%== @comment.content_html %></div>
+      <%= f.hidden_field :content_html %>
     </div>
   </div>
   <div class="form-group">

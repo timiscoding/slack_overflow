@@ -13,12 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
 //= require paloma
-//= require remarkable.min
+//= require markdown-it.min
+//= require highlight.pack
 //= require_tree .
 
-$(document).on('page:load', function(){
+$(document).ready(function(){
   // Manually evaluates the appended script tag.
   Paloma.executeHook();
   Paloma.engine.start();

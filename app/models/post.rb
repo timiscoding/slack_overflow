@@ -21,8 +21,6 @@ class Post < ActiveRecord::Base
   validates :topic, :presence => true
   validates :content_md, :presence => true
 
-  before_save :md_to_html
-  before_update :md_to_html
   after_save :last_update
   after_update :last_update
 

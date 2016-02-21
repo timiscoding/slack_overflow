@@ -12,7 +12,7 @@
  *
  *= require twitter-bootstrap-static/bootstrap
  *= require twitter-bootstrap-static/fontawesome
- *= require coderay
+ *= require tomorrow
  *= require_tree .
  *= require_self
  */
@@ -30,4 +30,47 @@ div.preview, textarea.md-input {
 
 textarea.md-input {
   resize: none;
+}
+
+.clearfix:after {
+  content: " ";
+  clear: both;
+}
+
+.content-html table,
+.popover-content table {
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+.content-html table, .content-html th, .content-html td,
+.popover-content table, .popover-content th, .popover-content td {
+    border: 1px solid black;
+}
+
+.content-html th, .content-html td,
+.popover-content th, .popover-content td {
+  padding: 0.5em;
+}
+
+.content-html img,
+.popover-content img {
+  max-width: 25%;
+}
+
+.content-html pre, .content-html code {
+  display: inline-block;
+}
+
+.popover {
+    max-width: 100%; // Max Width of the popover (depending on the container!)
+}
+
+.popover-content {
+    height: 90vh;
+    overflow:auto;
+}
+
+.popover-content table {
+  margin: 0 auto;
 }

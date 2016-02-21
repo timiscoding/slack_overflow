@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   include Votable
 
   def index
-    @posts = Post.all.order(:created_at)
+    @posts = Post.all.order(:created_at => :desc)
     js false # tell paloma to ignore action
   end
 
@@ -90,7 +90,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:topic, :content_md)
+    params.require(:post).permit(:topic, :content_md, :content_html)
   end
 
   def check_if_logged_in

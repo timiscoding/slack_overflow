@@ -15,8 +15,6 @@
 class Comment < ActiveRecord::Base
   include Parsable
 
-  before_save :md_to_html
-  before_update :md_to_html
   after_save :last_update
   after_update :last_update
 

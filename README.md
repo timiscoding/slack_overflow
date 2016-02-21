@@ -45,6 +45,13 @@ New updates
 * Vote buttons change to green when a vote has been cast
 * When making a post, it is automatically upvoted by the author
 * Post and comment editor styling looks better
+* Fixed picture overflowing panel header
+* Markdown conversion used to be done on client and server side. Now it's all done in-browser. Live preview and showing post/comment now renders the output.
+* Fixed bug where live preview stopped working after refreshing the new post/comment page
+* Styling for post/comment/preview more consistent
+* Fixed new comments being inserted in the wrong order
+* Post index shows newest posts first
+* markdown help when making new post/comment
 
 ## Demo
 
@@ -72,29 +79,27 @@ Jack for helping me with authentication and authorisation. Joel for helping me i
 * gem dependencies
   * [elasticsearch-rails](https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-rails)
   * [elasticsearch-model](https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-model)
-  * [redcarpet](https://github.com/vmg/redcarpet)
-  * [coderay](https://github.com/rubychan/coderay)
-  * [nokogiri](https://github.com/sparklemotion/nokogiri)
+  * ~~[redcarpet](https://github.com/vmg/redcarpet)~~ replaced with [markdown-it](https://github.com/markdown-it/markdown-it)
+  * ~~[coderay](https://github.com/rubychan/coderay)~~ replaced with [highlight.js](https://highlightjs.org/)
+  * ~~[nokogiri](https://github.com/sparklemotion/nokogiri)~~ used this with coderay
   * [paloma](https://github.com/kbparagua/paloma)
   * [bcrypt](https://github.com/codahale/bcrypt-ruby)
   * [twitter-bootstrap-rails](https://github.com/seyhunak/twitter-bootstrap-rails)
 
-* [remarkable jquery plugin](https://github.com/jonschlinkert/remarkable)
+* ~~[remarkable jquery plugin](https://github.com/jonschlinkert/remarkable)~~ replaced
 
 ## Bugs
 
 * Account registration lets users sign up as admin
-* When editing post/comment, there are styling differences between live preview and submitted content. This is because 2 different parsers are used: remarkable jquery plugin for client side and redcarpet for server side.
-  * live preview renders code blocks differently to the posted content.
-  * live preview italicises when wrapping text with single underscores but after submitting, the text is underlined.
-  * superscripting. e.g. `No^oo` not rendering in live preview
-* After casting a vote, there is no way to undo the vote
 * There is no difference between teacher and student accounts. The plan was to style comments/posts so students could easily spot their posts. I didn't have enough time to implement this.
-* User pictures spill out of panel headers
 * Going into your user profile causes a undefined controller error in console
 * Undefined controller in console when refreshing a post
 * toggling between up down votes causes buttons to turn into links
-* voting on a comment causes the comment to drop to the bottom on page refresh
+
+## To-do
+
+* Users can filter post index by date, votes
+* Allow user to specify language in fenced code block. Currently, it is auto detected and does an ok job. To get line numbering working, I used an implementation by highlight.js author in an older experimental branch. Need to merge the branch into master which enables manually choosing language.
 
 ## Configuration
 

@@ -15,6 +15,7 @@ new_post_path,
       <th>Votes</th>
       <th>Topic</th>
       <th>Author</th>
+      <th>Replies</th>
       <th>Created</th>
       <th>Last updated</th>
     </tr>
@@ -25,7 +26,8 @@ new_post_path,
         <td><%= post.score %></td>
         <td><%= link_to(post.topic, post) %></td>
         <td><%= post.user.name %></td>
-        <td><%= post.created_at.strftime('%a %e %b %Y') %></td>
+        <td><%= post.comments.count %></td>
+        <td><%= post.created_at.strftime('%I:%M %P %a %e %b %Y') %></td>
         <td><%= time_ago_in_words(post.last_update) %></td>
       </tr>
     <% end %>

@@ -83,7 +83,7 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:content_md)
+    params.require(:comment).permit(:content_md, :content_html)
   end
 
   def check_if_logged_in

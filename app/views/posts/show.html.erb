@@ -4,7 +4,7 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading clearfix">
     <div class="col-md-1">
       <%= image_tag @post.user.image, :class => 'img-responsive' %>
     </div>
@@ -27,12 +27,12 @@
       </li>
     </ul>
   </div>
-  <div class="panel-body"><%== @post.content_html %></div>
+  <div class="panel-body content-html"><%== @post.content_html %></div>
 </div>
 
-<% @post.comments.each do |comment| %>
+<% @post.comments.order(:created_at).each do |comment| %>
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading clearfix">
     <div class="col-md-1">
       <%= image_tag comment.user.image, :class => 'img-responsive' %>
     </div>
@@ -62,7 +62,7 @@
       <%= link_to 'Delete comment', post_comment_path(@post, comment), :method => :delete, :data => { :confirm => "Are you sure?"}, :class => 'btn btn-default', :role => 'button' %>
     <% end %>
   </div>
-  <div class="panel-body"><%== comment.content_html %></div>
+  <div class="panel-body content-html"><%== comment.content_html %></div>
 </div>
 <% end %>
 
