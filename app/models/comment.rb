@@ -13,10 +13,11 @@
 #
 
 class Comment < ActiveRecord::Base
-  include Parsable
+  include PostUpdatable
 
-  after_save :last_update
-  after_update :last_update
+  # update the last update timestamp for the post after a comment has been added/updated
+  after_save :update_post_last_update_timestamp
+  after_update :update_post_last_update_timestamp
 
   validates :content_md, :presence => true
 

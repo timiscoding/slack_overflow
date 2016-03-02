@@ -18,7 +18,7 @@
     <%= f.label :topic %>
   <div class="form-group">
     <div class="col-lg-12">
-    <%= f.text_field :topic, :class => 'form-control' %>
+    <%= f.text_field :topic, :required => true, :class => 'form-control' %>
     <%=f.error_span(:topic) %>
     </div>
   </div>
@@ -31,7 +31,7 @@
     <div class="col-lg-6">
       <%= f.label :content_md, :Content %>
       <%= render :partial => 'posts/markdownHelpPopover' %>
-      <%= f.text_area :content_md, :class => 'form-control md-input' %>
+      <%= f.text_area :content_md, :required => true, :class => 'form-control md-input' %>
     </div>
     <div class="col-lg-6">
       <%= f.label "Live markdown to HTML preview" %>

@@ -16,15 +16,16 @@
 class Post < ActiveRecord::Base
   include Elasticsearch::Model # enables search
   include Elasticsearch::Model::Callbacks # any changes to model will update index
-  include Parsable
+  include PostUpdatable
 
   validates :topic, :presence => true
   validates :content_md, :presence => true
 
-  after_save :last_update
-  after_update :last_update
+  # update the post last_update column before saving
+  before_save :update_post_last_update_timestamp
+  before_update :update_post_last_update_timestamp
 
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   belongs_to :user
   has_many :votes, as: :votable
 end

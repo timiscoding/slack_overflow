@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id           :integer          not null, primary key
+#  post_id      :integer
+#  user_id      :integer
+#  content_md   :text
+#  content_html :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  score        :integer          default(0)
+#
+
 class CommentsController < ApplicationController
   before_action :check_if_logged_in, :only => [:edit, :update, :new, :create, :vote_up, :vote_down]
   before_action :check_if_author, :only => [:edit, :update]
@@ -42,7 +56,6 @@ class CommentsController < ApplicationController
     if comment.save
       redirect_to post_path(comment.post)
     else
-      @errors = comment.errors.full_messages
       @comment = comment
       @post = Post.find params[:post_id]
       render :new
@@ -50,8 +63,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find params[:id]
-    comment.destroy
+    Comment.destroy params[:id]
     redirect_to post_path(params[:post_id])
   end
 

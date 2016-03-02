@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  topic        :string
+#  content_md   :text
+#  content_html :text
+#  last_update  :datetime
+#  created_at   :datetime
+#  updated_at   :datetime
+#  score        :integer          default(0)
+#
+
 class PostsController < ApplicationController
   before_action :check_if_admin, :only => [:destroy]
   before_action :check_if_logged_in, :only => [:new, :create, :edit, :update, :vote_up, :vote_down]
@@ -22,7 +37,6 @@ class PostsController < ApplicationController
       vote 1, 'post', post.id, session[:user_id]
       redirect_to posts_path
     else
-      @errors = post.errors.full_messages
       @post = post
       render :new
     end
@@ -37,7 +51,6 @@ class PostsController < ApplicationController
     if post.update post_params
       redirect_to post
     else
-      @errors = post.errors.full_messages
       @post = post
       render :edit
     end
@@ -49,8 +62,7 @@ class PostsController < ApplicationController
 
   def destroy
     post = Post.find params[:id]
-    Comment.destroy_all :post_id => params[:id]
-    post.destroy
+    post.destroy # associated comments will be auto deleted as defined in post model
     redirect_to posts_path
   end
 
@@ -107,6 +119,7 @@ class PostsController < ApplicationController
     redirect_to post_path(params[:id]) unless @current_user.present? && (@current_user.id == post.user.id || @current_user.admin?)
   end
 
+  # retrieve current users votes so we can display them in green in the show post view
   def show_users_votes
     return if @current_user.nil?
     postVote = @current_user.votes.find_by(:votable_type => 'Post', :votable_id => params[:id])
